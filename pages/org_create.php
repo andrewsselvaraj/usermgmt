@@ -4,7 +4,11 @@
  */
 
 require_once '../config/database.php';
+require_once '../config/auth.php';
 require_once '../models/OrgInfo.php';
+
+// Require login
+Auth::requireLogin('../login.php');
 
 // Initialize database connection
 $database = new Database();

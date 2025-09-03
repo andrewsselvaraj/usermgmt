@@ -4,9 +4,13 @@
  */
 
 require_once 'config/database.php';
+require_once 'config/auth.php';
 require_once 'models/OrgInfo.php';
 require_once 'models/RoleMaster.php';
 require_once 'models/UserInfo.php';
+
+// Require login
+Auth::requireLogin();
 
 // Initialize database connection
 $database = new Database();
@@ -42,6 +46,16 @@ $user_count = $userInfo->read()->rowCount();
                 <a href="pages/role_list.php" class="nav-link">Roles</a>
                 <a href="pages/user_list.php" class="nav-link">Users</a>
             </nav>
+            <div class="user-info">
+                <span class="user-details">
+                    <i class="fas fa-user"></i> 
+                    <?php echo htmlspecialchars(Auth::getUser()['user_name'] ?? 'User'); ?>
+                    <small>(<?php echo htmlspecialchars(Auth::getUserRole() ?? 'No Role'); ?>)</small>
+                </span>
+                <a href="logout.php" class="logout-btn" title="Logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
         </header>
 
         <main class="main">
